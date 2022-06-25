@@ -1,4 +1,5 @@
 import 'vuetify/styles' // Global CSS has to be imported
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
 import App from './App.vue'
@@ -11,6 +12,13 @@ const app = createApp(App)
 const vuetify = createVuetify({
   components,
   directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    }
+  },
 })
 
 
