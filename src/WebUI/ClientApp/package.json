@@ -1,24 +1,33 @@
 {
   "name": "clientapp",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "prestart": "node aspnetcore-https",
-    "start": "run-script-os",
-    "start:windows": "ng serve --port 44447 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
-    "start:default": "ng serve --port 44447 --ssl --ssl-cert $HOME/.aspnet/https/${npm_package_name}.pem --ssl-key $HOME/.aspnet/https/${npm_package_name}.key",
+    "serve": "vite preview",
+    "build": "vite build",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "prestart": "node aspnetcore-https",
+    "preview": "vite preview",
+    "start": "run-script-os",
+    "start:default": "ng serve --port 44447 --ssl --ssl-cert $HOME/.aspnet/https/${npm_package_name}.pem --ssl-key $HOME/.aspnet/https/${npm_package_name}.key",
+    "start:windows": "ng serve --port 44447 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key"
   },
   "dependencies": {
+    "@mdi/font": "5.9.55",
+    "roboto-fontface": "*",
     "run-script-os": "^1.1.6",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-router": "4",
+    "vuetify": "^3.0.0-beta.0",
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@types/webfontloader": "^1.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
+    "vite-plugin-vuetify": "^1.0.0-alpha.0",
+    "vue-cli-plugin-vuetify": "~2.5.1",
     "vue-tsc": "^0.34.7"
   }
 }
