@@ -1,6 +1,6 @@
 <template>
   <v-app>
-   <v-navigation-drawer app>
+   <v-navigation-drawer app v-model="drawer">
     <!-- -->
   </v-navigation-drawer>
 
@@ -8,7 +8,7 @@
         density="compact"
       >
         <template v-slot:prepend>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         </template>
 
         <v-app-bar-title>Case Management</v-app-bar-title>
@@ -48,7 +48,7 @@ export default defineComponent({
 
   data () {
     return {
-      //
+      drawer: false,
     }
   },
 })
