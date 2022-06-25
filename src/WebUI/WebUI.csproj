@@ -37,6 +37,10 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\" />
+    </ItemGroup>
+
     <PropertyGroup>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     </PropertyGroup>
