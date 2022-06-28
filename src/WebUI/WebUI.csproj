@@ -7,8 +7,8 @@
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
         <SpaRoot>ClientApp\</SpaRoot>
-        <SpaProxyServerUrl>https://localhost:44447</SpaProxyServerUrl>
-        <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
+        <SpaProxyServerUrl>https://localhost:3000/</SpaProxyServerUrl>
+        <SpaProxyLaunchCommand>yarn start</SpaProxyLaunchCommand>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>efad71c6-743c-4b87-9de8-f26d77146f6d</UserSecretsId>
     </PropertyGroup>
@@ -19,12 +19,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.5" />
-        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.5" />
-        <PackageReference Include="NSwag.AspNetCore" Version="13.16.0" />
-        <PackageReference Include="NSwag.MSBuild" Version="13.16.0">
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.6" />
+        <PackageReference Include="NSwag.AspNetCore" Version="13.16.1" />
+        <PackageReference Include="NSwag.MSBuild" Version="13.16.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -61,8 +62,8 @@
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run build" />
 
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>

@@ -11,7 +11,7 @@
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         </template>
 
-        <v-app-bar-title>Case Management</v-app-bar-title>
+        <v-app-bar-title>Case Management1</v-app-bar-title>
 
         <template v-slot:append>
           <v-btn icon="mdi-dots-vertical"></v-btn>
