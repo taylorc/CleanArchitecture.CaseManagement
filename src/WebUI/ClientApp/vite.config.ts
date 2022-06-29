@@ -11,7 +11,7 @@ const baseFolder =
         ? `${process.env.APPDATA}/ASP.NET/https`
         : `${process.env.HOME}/.aspnet/https`;
 
-const certificateName = process.env.npm_package_name
+const certificateName = process.env.npm_package_name;
 
 const certFilePath = join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = join(baseFolder, `${certificateName}.key`);

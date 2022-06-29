@@ -1,7 +1,5 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
  
- docker build -f .\src\webui\Dockerfile -t cleanarchcasemgmt .
- 
  # Clean Architecture Solution Template
 [![.NET](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-deploy.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-deploy.yml)
 [![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml)
