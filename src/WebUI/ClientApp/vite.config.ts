@@ -20,10 +20,8 @@ const keyFilePath = join(baseFolder, `${certificateName}.key`);
 export default defineConfig(({ command, mode }) => {
     if (command === 'build') {
       return {
-        server: {
                 plugins: [vue(), vuetify({ autoImport: true }),]
         }
-      }
     } else {
       // command === 'build'
       return {
