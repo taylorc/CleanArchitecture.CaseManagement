@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "node ./aspnetcore-https.js",
-    "start": "vite --debug",
-    "dev": "yarn prestart && vite --https",
+    "prestart": "node aspnetcore-https",
+    "start": "run-script-os",
+    "start:default": "vite --debug",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --https"
   },
