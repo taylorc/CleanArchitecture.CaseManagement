@@ -1,9 +1,9 @@
-import HelloWorld from '../components/HelloWorld.vue';
+import Home from '../views/Home.vue';
 
 import * as vueRouter from 'vue-router';
 
 export const routes = [
-  { path: '/', component: HelloWorld }// ,
+  { path: '/', component: Home },
   // { path: '/about', component: About },
 ]
 
