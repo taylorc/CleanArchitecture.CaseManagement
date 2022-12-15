@@ -11,7 +11,7 @@ namespace CleanArchitecture.Application.IntegrationTests;
 
 using static Testing;
 
-public class CustomWebApplicationFactory : WebApplicationFactory<Program>
+internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -27,10 +27,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices((builder, services) =>
         {
-            services
-                .Remove<ICurrentUserService>()
-                .AddTransient(provider => Mock.Of<ICurrentUserService>(s =>
-                    s.UserId == GetCurrentUserId()));
 
             services
                 .Remove<DbContextOptions<ApplicationDbContext>>()

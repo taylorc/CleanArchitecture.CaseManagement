@@ -37,7 +37,7 @@ public class CreateTodoListTests : BaseTestFixture
     [Test]
     public async Task ShouldCreateTodoList()
     {
-        var userId = await RunAsDefaultUserAsync();
+        var userId = "SYSTEM";
 
         var command = new CreateTodoListCommand
         {

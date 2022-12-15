@@ -1,14 +1,15 @@
-﻿using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
+﻿using CleanArchitecture.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Respawn;
 using Respawn.Graph;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
@@ -18,20 +19,26 @@ public partial class Testing
     private static WebApplicationFactory<Program> _factory = null!;
     private static IConfiguration _configuration = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
-    private static Checkpoint _checkpoint = null!;
+    private static Respawner _respawner = null!;
     private static string? _currentUserId;
+    private static SqlConnection _connection;
+    private static string _connectionString;
 
     [OneTimeSetUp]
-    public void RunBeforeAnyTests()
+    public async Task RunBeforeAnyTests()
     {
         _factory = new CustomWebApplicationFactory();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _configuration = _factory.Services.GetRequiredService<IConfiguration>();
+        _connectionString = _configuration.GetConnectionString("DefaultConnection");
+        _connection = new SqlConnection(_connectionString);
+        _connection.Open();
 
-        _checkpoint = new Checkpoint
+
+        _respawner = await Respawner.CreateAsync(_connection, new RespawnerOptions
         {
             TablesToIgnore = new Table[] { "__EFMigrationsHistory" }
-        };
+        });
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -43,58 +50,10 @@ public partial class Testing
         return await mediator.Send(request);
     }
 
-    public static string? GetCurrentUserId()
-    {
-        return _currentUserId;
-    }
-
-    public static async Task<string> RunAsDefaultUserAsync()
-    {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
-    }
-
-    public static async Task<string> RunAsAdministratorAsync()
-    {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { "Administrator" });
-    }
-
-    public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
-    {
-        using var scope = _scopeFactory.CreateScope();
-
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-        var user = new ApplicationUser { UserName = userName, Email = userName };
-
-        var result = await userManager.CreateAsync(user, password);
-
-        if (roles.Any())
-        {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-            foreach (var role in roles)
-            {
-                await roleManager.CreateAsync(new IdentityRole(role));
-            }
-
-            await userManager.AddToRolesAsync(user, roles);
-        }
-
-        if (result.Succeeded)
-        {
-            _currentUserId = user.Id;
-
-            return _currentUserId;
-        }
-
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
-
-        throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
-    }
-
     public static async Task ResetState()
     {
-        await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
+        
+        await _respawner.ResetAsync(_connectionString);
 
         _currentUserId = null;
     }
@@ -133,5 +92,8 @@ public partial class Testing
     [OneTimeTearDown]
     public void RunAfterAnyTests()
     {
+        _connection?.Close();
+        _connection?.Dispose();
+        _connection = null;
     }
 }

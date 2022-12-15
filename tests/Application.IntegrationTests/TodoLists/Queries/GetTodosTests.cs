@@ -13,7 +13,6 @@ public class GetTodosTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnPriorityLevels()
     {
-        await RunAsDefaultUserAsync();
 
         var query = new GetTodosQuery();
 
@@ -25,7 +24,6 @@ public class GetTodosTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnAllListsAndItems()
     {
-        await RunAsDefaultUserAsync();
 
         await AddAsync(new TodoList
         {
@@ -51,13 +49,4 @@ public class GetTodosTests : BaseTestFixture
         result.Lists.First().Items.Should().HaveCount(7);
     }
 
-    [Test]
-    public async Task ShouldDenyAnonymousUser()
-    {
-        var query = new GetTodosQuery();
-
-        var action = () => SendAsync(query);
-        
-        await action.Should().ThrowAsync<UnauthorizedAccessException>();
-    }
 }
