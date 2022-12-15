@@ -1,20 +1,28 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import 'vuetify/styles' // Global CSS has to be imported
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import { createApp } from 'vue'
+import { createVuetify } from 'vuetify'
+import App from './App.vue'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import router from './routes/router'
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+const app = createApp(App)
 
-export function getBaseUrl() {
-  return document.getElementsByTagName('base')[0].href;
-}
+const vuetify = createVuetify({
+  components,
+  directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    }
+  },
+})
 
-const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
-];
 
-if (environment.production) {
-  enableProdMode();
-}
+app.use(vuetify)
+app.use(router)
 
-platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+app.mount('#app')

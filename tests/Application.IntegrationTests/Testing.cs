@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Respawn;
+using Respawn.Graph;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
@@ -29,7 +30,7 @@ public partial class Testing
 
         _checkpoint = new Checkpoint
         {
-            TablesToIgnore = new[] { "__EFMigrationsHistory" }
+            TablesToIgnore = new Table[] { "__EFMigrationsHistory" }
         };
     }
 
