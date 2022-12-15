@@ -7,9 +7,9 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const baseFolder =
-    process.env.APPDATA !== undefined && process.env.APPDATA !== ''
-        ? `${process.env.APPDATA}/ASP.NET/https`
-        : `${process.env.HOME}/.aspnet/https`;
+  process.env.APPDATA !== undefined && process.env.APPDATA !== ''
+    ? `${process.env.APPDATA}/ASP.NET/https`
+    : `${process.env.HOME}/.aspnet/https`;
 
 const certificateName = process.env.npm_package_name;
 
@@ -18,30 +18,42 @@ const keyFilePath = join(baseFolder, `${certificateName}.key`);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-    if (command === 'build') {
-      return {
-                plugins: [vue(), vuetify({ autoImport: true }),]
-        }
-    } else {
-      // command === 'build'
-      return {
-        server: {
-        https: {
-            key: readFileSync(keyFilePath),
-            cert: readFileSync(certFilePath)
-        },
-        port: 3000,
-        // strictPort: true//,
-        // proxy: {
-        //   '/api': {
-        //     target: 'https://localhost:5001/',
-        //     changeOrigin: true,
-        //     secure: false
-        //   }
-        // }
-    },
-    plugins: [vue(), vuetify({ autoImport: true }),]
-}
-      }
+  if (command === 'build') {
+    return {
+      plugins: [vue(), vuetify({ autoImport: true }),]
     }
-  )
+  } else {
+    // command === 'build'
+    return {
+      server: {
+        https: {
+          key: readFileSync(keyFilePath),
+          cert: readFileSync(certFilePath)
+        },
+        port: 3000,        
+      },
+      test: {
+        setupFiles: "vuetify.config.js",
+        deps: {
+          inline: ["vuetify"],
+        },
+        globals: true,
+        environment: "jsdom",
+      },
+      plugins: [vue(), vuetify({ autoImport: true }),],
+      // resolve: {
+      //   extensions: [
+      //     '.js',
+      //     '.json',
+      //     '.jsx',
+      //     '.mjs',
+      //     '.ts',
+      //     '.tsx',
+      //     '.vue',
+      //     '.css',
+      //   ]
+      // },
+    }
+  }
+}
+)
