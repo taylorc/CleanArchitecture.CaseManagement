@@ -7,7 +7,7 @@
               rounded="lg"
               min-height="268"
             >
-              <div>LeftA</div>
+              <div>Left A</div>
             </v-sheet>
           </v-col>
 </template>

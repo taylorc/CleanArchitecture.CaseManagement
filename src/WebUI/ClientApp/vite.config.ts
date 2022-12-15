@@ -30,7 +30,7 @@ export default defineConfig(({ command, mode }) => {
             key: readFileSync(keyFilePath),
             cert: readFileSync(certFilePath)
         },
-        // port: 3000,
+        port: 3000,
         // strictPort: true//,
         // proxy: {
         //   '/api': {
@@ -45,22 +45,3 @@ export default defineConfig(({ command, mode }) => {
       }
     }
   )
-//     server: {
-//         https: {
-//             key: readFileSync(keyFilePath),
-//             cert: readFileSync(certFilePath)
-//         },
-//         // port: 3000,
-//         // strictPort: true//,
-//         // proxy: {
-//         //   '/api': {
-//         //     target: 'https://localhost:5001/',
-//         //     changeOrigin: true,
-//         //     secure: false
-//         //   }
-//         // }
-//     },
-//     plugins: [vue(), vuetify({ autoImport: true }),]
-// })
-
-
